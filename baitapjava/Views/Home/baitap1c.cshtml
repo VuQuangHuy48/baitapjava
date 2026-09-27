@@ -1,0 +1,185 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài Thực Hành Tuần 03 </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+
+        nav {
+            background-color: #f2f2f2;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+
+            nav a {
+                margin-right: 15px;
+                text-decoration: none;
+                color: #0066cc;
+                font-weight: bold;
+            }
+
+                nav a:hover {
+                    text-decoration: underline;
+                }
+
+        section {
+            margin-bottom: 40px;
+            padding-top: 10px;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid #ccc;
+            margin: 30px 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        table, th, td {
+            border: 1px solid #777;
+        }
+
+        td {
+            padding: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BÀI 1: Menu liên kết (Trang Home) -->
+    <nav id="home">
+        <strong>MENU LIÊN KẾT:</strong>
+        <a href="#login-section">Trang Đăng nhập</a> |
+        <a href="#repass-section">Trang Quên mật khẩu</a> |
+        <a href="#regist-section">Trang Đăng ký (Nâng cao)</a>
+    </nav>
+
+    <!-- BÀI 2: Trang login.html -->
+    <section id="login-section">
+        <h2>Thông tin đăng nhập sinh viên</h2>
+        <form action="https://www.google.com" method="POST">
+            <p>
+                <label for="masv_login">Mã số sinh viên:</label><br>
+                <input type="text" id="masv_login" name="masv" value="17dh110123">
+            </p>
+            <p>
+                <label for="password_login">Mật khẩu:</label><br>
+                <input type="password" id="password_login" name="password">
+            </p>
+            <p>
+                <input type="checkbox" id="remember" name="remember">
+                <label for="remember">Lưu thông tin đăng nhập.</label>
+            </p>
+            <p>
+                <input type="submit" value="Đăng nhập">
+            </p>
+        </form>
+        <p>Sử dụng thông tin đăng nhập do trường cấp, nếu quên mật khẩu thì nhấn vào <a href="#repass-section">đây</a>.</p>
+    </section>
+
+    <hr>
+
+    <!-- BÀI 3: Trang repass.html -->
+    <section id="repass-section">
+        <form action="https://www.google.com" method="POST">
+            <fieldset style="max-width: 600px;">
+                <legend>Lấy lại mật khẩu:</legend>
+                <p>
+                    <label for="masv_repass">Mã số sinh viên:</label><br>
+                    <input type="text" id="masv_repass" name="masv" value="19dh110123">
+                </p>
+                <p>
+                    <label for="oldpass">Mật khẩu cũ:</label><br>
+                    <input type="password" id="oldpass" name="oldpass">
+                </p>
+                <p>
+                    <label for="newpass">Mật khẩu mới:</label><br>
+                    <input type="password" id="newpass" name="newpass">
+                </p>
+                <p>
+                    <label for="retypepass">Nhập lại Mật khẩu mới:</label><br>
+                    <input type="password" id="retypepass" name="retypepass">
+                </p>
+                <p>
+                    <input type="submit" value="Lưu lại">
+                </p>
+            </fieldset>
+        </form>
+    </section>
+
+    <hr>
+
+    <!-- BÀI 4 & NÂNG CAO: Trang regist.html sử dụng <table> -->
+    <section id="regist-section">
+        <h2>NHẬP THÔNG TIN SINH VIÊN</h2>
+        <form action="https://www.google.com" method="POST" enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <td rowspan="3" align="center" valign="middle" style="width: 180px;">
+                        <img src="img/hinh01.jpg" alt="Avatar / Hình ảnh" width="120" style="background-color: #eee; min-height: 120px; display: block; margin: auto;">
+                    </td>
+                    <td>HỌ VÀ TÊN:</td>
+                    <td><input type="text" name="fullname" style="width: 90%;"></td>
+                </tr>
+                <tr>
+                    <td>MÃ SỐ SINH VIÊN :</td>
+                    <td><input type="text" name="masv" style="width: 90%;"></td>
+                </tr>
+                <tr>
+                    <td>NGÀY SINH:</td>
+                    <td><input type="date" name="dob"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">CHUYÊN NGÀNH:</td>
+                    <td>
+                        <input type="radio" id="cnpm" name="major" value="CNPM"> <label for="cnpm">CNPM</label>
+                        <input type="radio" id="httt" name="major" value="HTTT"> <label for="httt">HTTT</label>
+                        <input type="radio" id="anm" name="major" value="ANM"> <label for="anm">AN NINH MẠNG</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">SỞ THÍCH:</td>
+                    <td>
+                        <input type="checkbox" id="st1" name="hobby" value="code"> <label for="st1">VIẾT CHƯƠNG TRÌNH</label><br>
+                        <input type="checkbox" id="st2" name="hobby" value="db"> <label for="st2">PHÂN TÍCH CSDL</label><br>
+                        <input type="checkbox" id="st3" name="hobby" value="network"> <label for="st3">XÂY DỰNG SƠ ĐỒ MẠNG</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>MÀU SẮC YÊU THÍCH:</td>
+                    <td><input type="color" name="favorite_color" value="#000000"></td>
+                    <td>
+                        HÌNH ĐẠI DIỆN:
+                        <input type="file" name="avatar">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">TÊN ĐĂNG NHẬP WEB TRƯỜNG:</td>
+                    <td><input type="text" name="username" style="width: 90%;"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">MẬT KHẨU ĐĂNG NHẬP WEB TRƯỜNG:</td>
+                    <td><input type="password" name="password" value="12345678" style="width: 90%;"></td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="center">
+                        <input type="submit" value="Gửi dữ liệu về máy chủ">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </section>
+
+</body>
+</html>

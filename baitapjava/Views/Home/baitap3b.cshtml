@@ -1,0 +1,312 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Bài tap 3b  </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+
+        section {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 6px;
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        /* Stopwatch CSS */
+        .stopwatch-bg {
+            background-color: orange;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+            .stopwatch-bg h1 {
+                font-size: 32px;
+                margin: 0;
+            }
+
+            .stopwatch-bg p {
+                font-size: 28px;
+                font-weight: bold;
+                margin: 10px 0;
+            }
+
+            .stopwatch-bg button {
+                padding: 6px 15px;
+                margin: 0 5px;
+                background: transparent;
+                border: 1px solid white;
+                color: white;
+                cursor: pointer;
+            }
+
+        /* Digital Clock CSS */
+        .clock-bg {
+            background-color: black;
+            padding: 30px;
+            text-align: center;
+        }
+
+        #digitalClock {
+            color: #00d2ff;
+            font-family: 'Courier New', monospace;
+            font-size: 45px;
+            font-weight: bold;
+        }
+
+        /* Todo List CSS */
+        .todo-card {
+            width: 320px;
+            background: #fff;
+            border: 1px solid #ccc;
+            margin-top: 10px;
+        }
+
+        .todo-header {
+            display: flex;
+            background: #34495e;
+        }
+
+            .todo-header input {
+                flex: 1;
+                padding: 10px;
+                border: none;
+                color: white;
+                background: transparent;
+                outline: none;
+            }
+
+                .todo-header input::placeholder {
+                    color: #ccc;
+                }
+
+            .todo-header button {
+                background: #1abc9c;
+                border: none;
+                color: white;
+                padding: 0 15px;
+                font-size: 18px;
+                cursor: pointer;
+            }
+
+        .todo-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+            .todo-list li {
+                padding: 10px;
+                border-bottom: 1px solid #eee;
+                display: flex;
+                align-items: center;
+            }
+
+                .todo-list li.completed span {
+                    text-decoration: line-through;
+                    color: #888;
+                }
+
+            .todo-list input[type="checkbox"] {
+                margin-right: 10px;
+            }
+    </style>
+</head>
+<body>
+
+    <h1>BÀI THỰC HÀNH TUẦN 07 - ỨNG DỤNG JAVASCRIPT</h1>
+
+    <!-- 1. HƯỚNG DẪN: STOPWATCH -->
+    <section>
+        <h2>1. Hướng dẫn: Đồng hồ bấm giờ (Stopwatch)</h2>
+        <div class="stopwatch-bg">
+            <h1>STOPWATCH</h1>
+            <p><span id="seconds">00</span>:<span id="tens">00</span></p>
+            <button id="button-start">Start</button>
+            <button id="button-stop">Stop</button>
+            <button id="button-reset">Reset</button>
+        </div>
+    </section>
+
+    <!-- 2. HƯỚNG DẪN: PALINDROME -->
+    <section>
+        <h2>2. Hướng dẫn: Kiểm tra Palindrome</h2>
+        <input type="text" id="inputText" placeholder="Nhập chuỗi..." />
+        <input type="button" value="Check" onclick="palindrome()" />
+        <p id="outputText"></p>
+    </section>
+
+    <!-- 3. BÀI TẬP 1: ĐỒNG HỒ KĨ THUẬT SỐ -->
+    <section>
+        <h2>3. Bài tập 1: Đồng hồ kỹ thuật số (Digital Clock)</h2>
+        <div class="clock-bg">
+            <div id="digitalClock">00:00:00 AM</div>
+        </div>
+    </section>
+
+    <!-- 4. BÀI TẬP 2: TO-DO LIST -->
+    <section>
+        <h2>4. Bài tập 2: Ứng dụng To-Do List</h2>
+        <div class="todo-card">
+            <div class="todo-header">
+                <input type="text" id="taskInput" placeholder="Enter a task">
+                <button type="button" onclick="addTask()">+</button>
+            </div>
+            <ul class="todo-list" id="taskList">
+                <li class="completed">
+                    <input type="checkbox" checked onchange="toggleTask(event)">
+                    <span>Việc 1</span>
+                </li>
+                <li>
+                    <input type="checkbox" onchange="toggleTask(event)">
+                    <span>Việc 2</span>
+                </li>
+                <li>
+                    <input type="checkbox" onchange="toggleTask(event)">
+                    <span>Việc 3</span>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <script>
+                // --- 1. Stopwatch Script ---
+                var seconds = 0;
+                var tens = 0;
+                var appendTens = document.getElementById("tens");
+                var appendSeconds = document.getElementById("seconds");
+                var buttonStart = document.getElementById('button-start');
+                var buttonStop = document.getElementById('button-stop');
+                var buttonReset = document.getElementById('button-reset');
+
+                // Khởi tạo rõ kiểu dữ liệu ban đầu tránh lỗi TS7034
+                var Interval = null;
+
+                if (buttonStart) {
+                    buttonStart.onclick = function () {
+                        if (Interval !== null) {
+                            clearInterval(Interval);
+                        }
+                        Interval = setInterval(startTimer, 10);
+                    };
+                }
+
+                if (buttonStop) {
+                    buttonStop.onclick = function () {
+                        if (Interval !== null) {
+                            clearInterval(Interval);
+                        }
+                    };
+                }
+
+                if (buttonReset) {
+                    buttonReset.onclick = function () {
+                        if (Interval !== null) {
+                            clearInterval(Interval);
+                        }
+                        tens = 0;
+                        seconds = 0;
+                        if (appendTens) appendTens.innerHTML = "00";
+                        if (appendSeconds) appendSeconds.innerHTML = "00";
+                    };
+                }
+
+                function startTimer() {
+                    tens++;
+                    if (appendTens) {
+                        if (tens <= 9) appendTens.innerHTML = "0" + tens;
+                        else appendTens.innerHTML = tens.toString();
+                    }
+                    if (tens > 99) {
+                        seconds++;
+                        if (appendSeconds) {
+                            appendSeconds.innerHTML = seconds < 10 ? "0" + seconds : seconds.toString();
+                        }
+                        tens = 0;
+                        if (appendTens) appendTens.innerHTML = "00";
+                    }
+                }
+
+                // --- 2. Palindrome Script ---
+                function palindrome() {
+                    var inputEl = document.getElementById("inputText");
+                    if (!inputEl) return;
+                    var myString = inputEl.value;
+                    var removeChar = myString.replace(/[^A-Z0-9]/ig, "").toLowerCase();
+                    var checkPalindrome = removeChar.split('').reverse().join('');
+                    var outParagraph = document.getElementById("outputText");
+
+                    if (outParagraph) {
+                        if (removeChar && removeChar === checkPalindrome) {
+                            outParagraph.innerHTML = "<strong>" + myString + "</strong> is a Palindrome";
+                        } else {
+                            outParagraph.innerHTML = "<strong>" + myString + "</strong> is not a Palindrome";
+                        }
+                    }
+                }
+
+                // --- 3. Digital Clock Script ---
+                function updateDigitalClock() {
+                    var clockEl = document.getElementById('digitalClock');
+                    if (!clockEl) return;
+
+                    var now = new Date();
+                    var h = now.getHours();
+                    var m = now.getMinutes();
+                    var s = now.getSeconds();
+                    var ampm = h >= 12 ? 'PM' : 'AM';
+
+                    h = h % 12;
+                    h = h ? h : 12;
+
+                    var hStr = h < 10 ? '0' + h : h.toString();
+                    var mStr = m < 10 ? '0' + m : m.toString();
+                    var sStr = s < 10 ? '0' + s : s.toString();
+
+                    clockEl.innerText = hStr + ':' + mStr + ':' + sStr + ' ' + ampm;
+                }
+                setInterval(updateDigitalClock, 1000);
+                updateDigitalClock();
+
+                // --- 4. To-Do List Script ---
+                function addTask() {
+                    var input = document.getElementById('taskInput');
+                    if (!input) return;
+                    var text = input.value.trim();
+                    if (!text) return;
+
+                    var li = document.createElement('li');
+                    li.innerHTML = '<input type="checkbox" onchange="toggleTask(event)"> <span>' + text + '</span>';
+
+                    var taskList = document.getElementById('taskList');
+                    if (taskList) {
+                        taskList.appendChild(li);
+                    }
+                    input.value = "";
+                }
+
+                // Thay 'this' bằng 'event' để tránh lỗi TS2683
+                function toggleTask(event) {
+                    var chk = event.target;
+                    if (chk && chk.parentElement) {
+                        if (chk.checked) {
+                            chk.parentElement.classList.add('completed');
+                        } else {
+                            chk.parentElement.classList.remove('completed');
+                        }
+                    }
+                }
+    </script>
+
+</body>
+</html>
